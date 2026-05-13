@@ -1,0 +1,4 @@
+# https://docs.github.com/en/repositories/managing-your-repositorys-settings-and-features/customizing-your-repository/about-code-owners
+* @dominion-io/maintainer
+resources/lang @dominion-io/translation-approver
+resources/lang/en.json @dominion-io/maintainer

@@ -1,0 +1,18 @@
+<svg width="1600" height="900" viewBox="0 0 1600 900" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="1600" height="900" fill="#0D1117"/>
+  <path d="M-74 654C99 557 265 611 413 517C565 421 708 242 934 286C1141 327 1260 459 1679 364V900H-74V654Z" fill="#1C2B1E"/>
+  <path d="M-42 170C178 70 350 173 538 113C739 50 933 -74 1644 85V0H-42V170Z" fill="#161D22"/>
+  <g opacity=".55" stroke="#2E3D2E" stroke-width="2">
+    <path d="M0 80H1600M0 180H1600M0 280H1600M0 380H1600M0 480H1600M0 580H1600M0 680H1600M0 780H1600"/>
+    <path d="M100 0V900M220 0V900M340 0V900M460 0V900M580 0V900M700 0V900M820 0V900M940 0V900M1060 0V900M1180 0V900M1300 0V900M1420 0V900M1540 0V900"/>
+  </g>
+  <g opacity=".18" fill="#C8973A">
+    <circle cx="250" cy="275" r="8"/>
+    <circle cx="690" cy="512" r="10"/>
+    <circle cx="1050" cy="298" r="7"/>
+    <circle cx="1310" cy="603" r="9"/>
+  </g>
+  <g opacity=".2" stroke="#D64045" stroke-width="3">
+    <path d="M250 275L690 512L1050 298L1310 603"/>
+  </g>
+</svg>
