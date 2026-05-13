@@ -191,45 +191,6 @@ declare global {
   interface Window {
     GIT_COMMIT: string;
     turnstile: any;
-    adsEnabled: boolean;
-    PageOS: {
-      session: {
-        newPageView: () => void;
-      };
-    };
-    ramp: {
-      que: Array<() => void>;
-      passiveMode: boolean;
-      spaAddAds: (ads: Array<{ type: string; selectorId?: string }>) => void;
-      destroyUnits: (adType: string | string[]) => Promise<void>;
-      settings?: {
-        slots?: any;
-      };
-      spaNewPage: (url?: string) => void;
-      spaAds: (config?: {
-        ads?: Array<{ type: string; selectorId?: string }>;
-        countPageview?: boolean;
-        path?: string;
-      }) => void;
-      // Video ad methods
-      onPlayerReady: (() => void) | null;
-      addUnits: (units: Array<{ type: string }>) => Promise<void>;
-      displayUnits: () => void;
-    };
-    Bolt: {
-      on: (unitType: string, event: string, callback: () => void) => void;
-      BOLT_AD_REQUEST_START: string;
-      BOLT_AD_IMPRESSION: string;
-      BOLT_AD_STARTED: string;
-      BOLT_FIRST_QUARTILE: string;
-      BOLT_MIDPOINT: string;
-      BOLT_THIRD_QUARTILE: string;
-      BOLT_AD_COMPLETE: string;
-      BOLT_AD_ERROR: string;
-      BOLT_AD_PAUSED: string;
-      BOLT_AD_CLICKED: string;
-      SHOW_HIDDEN_CONTAINER: string;
-    };
     currentPageId?: string;
     showPage?: (pageId: string) => void;
   }
@@ -451,9 +412,6 @@ class Client {
 
     const onUserMe = async (userMeResponse: UserMeResponse | false) => {
       updateAccountNavButton(userMeResponse);
-      const isAdFree =
-        userMeResponse !== false && userMeResponse.player?.adfree === true;
-      window.adsEnabled = !isAdFree && !crazyGamesSDK.isOnCrazyGames();
       document.dispatchEvent(
         new CustomEvent("userMeResponse", {
           detail: userMeResponse,
@@ -877,9 +835,6 @@ class Client {
         (ad as HTMLElement).style.display = "none";
       });
 
-      if (window.PageOS?.session?.newPageView) {
-        window.PageOS.session.newPageView();
-      }
       crazyGamesSDK.loadingStop();
       crazyGamesSDK.gameplayStart();
       document.body.classList.add("in-game");

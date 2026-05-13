@@ -1,6 +1,5 @@
 import { decodeJwt } from "jose";
 import { UserSettings } from "src/core/game/UserSettings";
-import { z } from "zod";
 import { TokenPayload, TokenPayloadSchema } from "../core/ApiSchemas";
 import { base64urlToUuid } from "../core/Base64";
 import { getApiBase, getAudience } from "./Api";
@@ -81,10 +80,8 @@ export async function userAuth(
     const jwt = __jwt;
     if (!jwt) {
       if (!shouldRefresh) {
-        console.warn("No JWT found and shouldRefresh is false");
         return false;
       }
-      console.log("No JWT found");
       await refreshJwt();
       return userAuth(false);
     }
@@ -102,22 +99,16 @@ export async function userAuth(
     const { iss, aud } = payload;
 
     if (iss !== getApiBase()) {
-      // JWT was not issued by the correct server
-      console.error('unexpected "iss" claim value');
       logOut();
       return false;
     }
     const myAud = getAudience();
     if (myAud !== "localhost" && aud !== myAud) {
-      // JWT was not issued for this website
-      console.error('unexpected "aud" claim value');
       logOut();
       return false;
     }
     if (Date.now() >= __expiresAt - 3 * 60 * 1000) {
-      console.log("jwt expired or about to expire");
       if (!shouldRefresh) {
-        console.error("jwt expired and shouldRefresh is false");
         return false;
       }
       await refreshJwt();
@@ -128,15 +119,12 @@ export async function userAuth(
 
     const result = TokenPayloadSchema.safeParse(payload);
     if (!result.success) {
-      const error = z.prettifyError(result.error);
-      console.error("Invalid payload", error);
       return false;
     }
 
     const claims = result.data;
     return { jwt, claims };
-  } catch (e) {
-    console.error("isLoggedIn failed", e);
+  } catch {
     return false;
   }
 }
@@ -155,26 +143,20 @@ async function refreshJwt(): Promise<void> {
 
 async function doRefreshJwt(): Promise<void> {
   try {
-    console.log("Refreshing jwt");
     const response = await fetch(getApiBase() + "/auth/refresh", {
       method: "POST",
       credentials: "include",
     });
     if (response.status !== 200) {
-      console.error("Refresh failed", response);
       logOut();
       return;
     }
     const json = await response.json();
     const { jwt, expiresIn } = json;
     __expiresAt = Date.now() + expiresIn * 1000;
-    console.log("Refresh succeeded");
     __jwt = jwt;
-  } catch (e) {
-    console.error("Refresh failed", e);
-    // if server unreachable, just clear jwt
+  } catch {
     __jwt = null;
-    return;
   }
 }
 

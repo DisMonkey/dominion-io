@@ -6,7 +6,6 @@
   <circle cx="56" cy="56" r="5" fill="#D64045"/>
   <path d="M124 25H440" stroke="#C8973A" stroke-width="2" stroke-linecap="round"/>
   <path d="M124 82H480" stroke="#7A8A7A" stroke-width="2" stroke-linecap="round" stroke-dasharray="6 8"/>
-  <text x="122" y="69" fill="#E8E0D0" font-family="Rajdhani, Orbitron, Arial, sans-serif" font-size="48" font-weight="800" letter-spacing="6">DOMINION</text>
-  <text x="416" y="69" fill="#C8973A" font-family="Rajdhani, Orbitron, Arial, sans-serif" font-size="36" font-weight="700" letter-spacing="2">.IO</text>
+  <text x="122" y="69" font-family="Rajdhani, Orbitron, Arial, sans-serif"><tspan fill="#E8E0D0" font-size="48" font-weight="800" letter-spacing="6">DOMINION</tspan><tspan fill="#C8973A" font-size="36" font-weight="700" letter-spacing="2">.IO</tspan></text>
   <text x="323" y="28" fill="#C8973A" font-family="Share Tech Mono, monospace" font-size="12" font-weight="700" letter-spacing="3">COMMAND NET</text>
 </svg>
