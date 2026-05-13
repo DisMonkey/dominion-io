@@ -154,12 +154,19 @@ export class GameModeSelector extends LitElement {
           class="grid grid-cols-1 sm:grid-cols-[2fr_1fr] gap-4 sm:h-[min(24rem,40vh)]"
         >
           ${this.serverOffline
-            ? html`<div class="sm:col-span-2 flex flex-col items-center justify-center gap-3 bg-surface rounded-xl border border-white/10 p-8 text-center">
-                <svg class="w-10 h-10 text-white/30" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
-                  <path stroke-linecap="round" stroke-linejoin="round" d="M17.25 6.75 22.5 12l-5.25 5.25m-10.5 0L1.5 12l5.25-5.25m7.5-3-4.5 16.5" />
-                </svg>
-                <p class="text-white/50 font-semibold text-sm uppercase tracking-widest">Server Offline</p>
-                <p class="text-white/30 text-xs max-w-xs">The game server is unreachable. You can still play SOLO against bots.</p>
+            ? html`<div class="sm:col-span-2 flex flex-col items-center justify-center gap-4 bg-surface rounded-xl border border-white/10 p-8 text-center">
+                <p class="text-2xl">⚔️</p>
+                <p class="text-white/70 font-bold text-sm uppercase tracking-widest">Multiplayer servers offline</p>
+                <p class="text-white/40 text-xs max-w-xs">Click SOLO to battle against historical empires</p>
+                <button
+                  @click=${this.openSinglePlayerModal}
+                  class="mt-2 px-8 py-3 rounded-xl font-bold uppercase tracking-wider text-sm text-white transition-all duration-200"
+                  style="background:#C8973A;box-shadow:0 0 16px #C8973A60;"
+                  @mouseenter=${(e: Event) => { (e.currentTarget as HTMLElement).style.boxShadow = '0 0 28px #C8973A90'; }}
+                  @mouseleave=${(e: Event) => { (e.currentTarget as HTMLElement).style.boxShadow = '0 0 16px #C8973A60'; }}
+                >
+                  Play Solo
+                </button>
               </div>`
             : html`
           <!-- Left col: main card (desktop only) -->
@@ -205,7 +212,7 @@ export class GameModeSelector extends LitElement {
           ${this.renderSmallActionCard(
             translateText("main.solo"),
             this.openSinglePlayerModal,
-            "bg-malibu-blue hover:bg-aquarius active:bg-malibu-blue/80 hover:scale-y-105 hover:scale-x-[1.01]",
+            "solo-pulse-btn bg-malibu-blue hover:bg-aquarius active:bg-malibu-blue/80 hover:scale-y-105 hover:scale-x-[1.01]",
           )}
         </div>
         <!-- Bottom row: create + ranked + join (desktop only) -->

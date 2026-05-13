@@ -36,13 +36,15 @@ export class NotLoggedInWarning extends LitElement {
 
     return html`<div class="no-crazygames flex items-center">
       <button
-        class="px-4 py-2 text-xs font-bold uppercase tracking-wider transition-colors duration-200 rounded-lg bg-red-500/20 text-red-400 border border-red-500/30 cursor-pointer hover:bg-red-500/30"
-        data-i18n="common.not_logged_in"
+        class="text-xs transition-colors duration-200 cursor-pointer"
+        style="color:#C8973A80;background:none;border:none;padding:0;"
+        @mouseenter=${(e: Event) => { (e.currentTarget as HTMLElement).style.color = '#C8973A'; }}
+        @mouseleave=${(e: Event) => { (e.currentTarget as HTMLElement).style.color = '#C8973A80'; }}
         @click=${() => {
           window.showPage?.("page-account");
         }}
       >
-        Not logged in
+        Sign in with Google to save progress
       </button>
     </div>`;
   }

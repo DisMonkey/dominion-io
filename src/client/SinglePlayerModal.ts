@@ -39,9 +39,9 @@ import {
 import { terrainMapFileLoader } from "./TerrainMapFileLoader";
 
 const DEFAULT_OPTIONS = {
-  selectedMap: GameMapType.World,
+  selectedMap: GameMapType.Britannia,
   selectedDifficulty: Difficulty.Easy,
-  bots: 400,
+  bots: 20,
   infiniteGold: false,
   infiniteTroops: false,
   compactMap: false,
@@ -526,7 +526,7 @@ export class SinglePlayerModal extends BaseModal {
     if (isNaN(value) || value < 0 || value > 400) {
       return;
     }
-    this.bots = value;
+    this.bots = Math.round(value);
   };
 
   private handleNationsChange = (e: Event) => {

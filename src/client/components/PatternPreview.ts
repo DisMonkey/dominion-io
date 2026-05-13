@@ -25,22 +25,12 @@ export function renderPatternPreview(
 function renderBlankPreview(): TemplateResult {
   return html`
     <div
-      class="md:hidden flex items-center justify-center h-full w-full bg-white rounded overflow-hidden relative border border-[#ccc] box-border"
-    >
-      <div
-        class="grid grid-cols-2 grid-rows-2 gap-0 w-[calc(100%-1px)] h-[calc(100%-2px)] box-border"
-      >
-        <div class="bg-white border border-black/10 box-border"></div>
-        <div class="bg-white border border-black/10 box-border"></div>
-        <div class="bg-white border border-black/10 box-border"></div>
-        <div class="bg-white border border-black/10 box-border"></div>
-      </div>
-    </div>
-    <div
-      class="hidden md:flex items-center justify-center h-full w-full rounded overflow-hidden relative text-center p-1"
+      class="flex items-center justify-center h-full w-full rounded overflow-hidden relative"
+      style="background:#1C2B1E;border:1px solid #C8973A40;"
     >
       <span
-        class="text-[10px] font-black text-white/40 uppercase leading-none break-words w-full"
+        class="text-[10px] font-black uppercase leading-none break-words w-full text-center"
+        style="color:#C8973A80;"
       >
         ${translateText("territory_patterns.select_skin")}
       </span>
@@ -49,8 +39,8 @@ function renderBlankPreview(): TemplateResult {
 }
 
 const patternCache = new Map<string, string>();
-const DEFAULT_PRIMARY = new Colord("#ffffff").toRgb();
-const DEFAULT_SECONDARY = new Colord("#000000").toRgb();
+const DEFAULT_PRIMARY = new Colord("#C8973A").toRgb();
+const DEFAULT_SECONDARY = new Colord("#1C2B1E").toRgb();
 
 export function generatePreviewDataUrl(
   pattern?: PlayerPattern,

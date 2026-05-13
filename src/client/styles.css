@@ -674,3 +674,14 @@ news-button .active button::after {
 .remove-player-btn:hover {
   background: #ff6666;
 }
+
+.solo-pulse-btn {
+  box-shadow: 0 0 0 0 #C8973A60;
+  animation: soloPulse 2.5s ease-in-out infinite;
+}
+
+@keyframes soloPulse {
+  0% { box-shadow: 0 0 0 0 #C8973A60; }
+  50% { box-shadow: 0 0 16px 4px #C8973A40; }
+  100% { box-shadow: 0 0 0 0 #C8973A60; }
+}

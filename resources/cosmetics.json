@@ -6,35 +6,105 @@
       "affiliateCode": null,
       "product": null,
       "rarity": "common",
-      "pattern": "AAAAAA"
+      "pattern": "ADIYAAD__wAA__8"
     },
     "checkerboard": {
       "name": "checkerboard",
       "affiliateCode": null,
       "product": null,
       "rarity": "common",
-      "pattern": "AAAAAA"
+      "pattern": "ADIYzMwzM8zMMzM"
     },
     "dots": {
       "name": "dots",
       "affiliateCode": null,
       "product": null,
       "rarity": "common",
-      "pattern": "AAAAAA"
+      "pattern": "ADIY_8OBgYGBw_8"
     },
     "diagonal": {
       "name": "diagonal",
       "affiliateCode": null,
       "product": null,
       "rarity": "common",
-      "pattern": "AAAAAA"
+      "pattern": "ADIY7t27d-7du3c"
     },
     "cross": {
       "name": "cross",
       "affiliateCode": null,
       "product": null,
       "rarity": "common",
-      "pattern": "AAAAAA"
+      "pattern": "ADIY5-fnAADn5-c"
+    },
+    "flames": {
+      "name": "flames",
+      "affiliateCode": null,
+      "product": null,
+      "rarity": "uncommon",
+      "pattern": "ADIYmQAAJGbDgcM"
+    },
+    "camo": {
+      "name": "camo",
+      "affiliateCode": null,
+      "product": null,
+      "rarity": "uncommon",
+      "pattern": "ADIYGDxmw8NmPBg"
+    },
+    "circuit": {
+      "name": "circuit",
+      "affiliateCode": null,
+      "product": null,
+      "rarity": "uncommon",
+      "pattern": "ADIYAH5CWlpCfgA"
+    },
+    "scales": {
+      "name": "scales",
+      "affiliateCode": null,
+      "product": null,
+      "rarity": "rare",
+      "pattern": "ADIY4cze3uHzP58"
+    },
+    "stars": {
+      "name": "stars",
+      "affiliateCode": null,
+      "product": null,
+      "rarity": "rare",
+      "pattern": "ADIY9-P3vx-__vg"
+    },
+    "waves": {
+      "name": "waves",
+      "affiliateCode": null,
+      "product": null,
+      "rarity": "rare",
+      "pattern": "ADIYPH7nw5k8fuc"
+    },
+    "crown": {
+      "name": "crown",
+      "affiliateCode": null,
+      "product": null,
+      "rarity": "epic",
+      "pattern": "ADIYqgAAgcPn__8"
+    },
+    "lightning": {
+      "name": "lightning",
+      "affiliateCode": null,
+      "product": null,
+      "rarity": "epic",
+      "pattern": "ADIYz-fz-Z_P5_M"
+    },
+    "tribal": {
+      "name": "tribal",
+      "affiliateCode": null,
+      "product": null,
+      "rarity": "epic",
+      "pattern": "ADIYfjyZw8OZPH4"
+    },
+    "pixel": {
+      "name": "pixel",
+      "affiliateCode": null,
+      "product": null,
+      "rarity": "legendary",
+      "pattern": "ADIYw71aZmZavcM"
     }
   },
   "flags": {}
