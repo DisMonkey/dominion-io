@@ -81,6 +81,8 @@
     "vitest-canvas-mock": "^1.1.4"
   },
   "dependencies": {
+    "@emnapi/core": "^1.10.0",
+    "@emnapi/runtime": "^1.10.0",
     "@lit-labs/virtualizer": "^2.1.1",
     "@opentelemetry/api": "^1.9.1",
     "@opentelemetry/api-logs": "^0.216.0",
