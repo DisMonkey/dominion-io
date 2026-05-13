@@ -89,6 +89,7 @@ import "./ui/IntelPanel";
 import "./ui/LeaderboardScreen";
 import "./ui/LobbyScreen";
 import "./ui/CosmeticsScreen";
+import "./ui/LeaderboardScreen";
 import "./ui/MainMenu";
 import "./ui/NationalFocusPanel";
 import "./ui/PerfMonitor";
