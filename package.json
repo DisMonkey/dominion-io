@@ -4,6 +4,7 @@
   "homepage": "https://dominion.io/",
   "scripts": {
     "build": "concurrently --kill-others-on-fail \"tsc --noEmit\" \"vite build --outDir dist\"",
+    "build:vercel": "vite build --mode development --outDir dist",
     "build-dev": "concurrently \"tsc --noEmit\" \"vite build --mode development\"",
     "build-prod": "concurrently --kill-others-on-fail \"tsc --noEmit\" \"vite build\"",
     "build:server": "tsc --noEmit",
