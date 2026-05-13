@@ -1,0 +1,25 @@
+{
+  "icons": [
+    {
+      "purpose": "any maskable",
+      "sizes": "32x32 64x64",
+      "src": "/favicon.svg",
+      "type": "image/svg+xml"
+    },
+    {
+      "purpose": "any maskable",
+      "sizes": "192x192",
+      "src": "/favicon-192.png",
+      "type": "image/png"
+    }
+  ],
+  "orientation": "portrait",
+  "display_override": ["fullscreen", "minimal-ui"],
+  "display": "standalone",
+  "dir": "auto",
+  "lang": "en",
+  "name": "Dominion.io",
+  "short_name": "Dominion",
+  "start_url": "/",
+  "id": "/dominion-io"
+}

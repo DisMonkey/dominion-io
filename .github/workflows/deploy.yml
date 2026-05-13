@@ -1,0 +1,59 @@
+name: Deploy Dominion.io
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  test:
+    name: Lint & Test
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+          cache: "npm"
+      - run: npm ci --ignore-scripts
+      - run: npm run lint
+      - run: npm test
+
+  deploy-frontend:
+    name: Deploy Frontend (Vercel)
+    needs: test
+    if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+          cache: "npm"
+      - run: npm ci --ignore-scripts
+      - name: Build production bundle
+        run: npm run build-prod
+        env:
+          VITE_API_DOMAIN: ${{ secrets.VITE_API_DOMAIN }}
+          VITE_WS_DOMAIN: ${{ secrets.VITE_WS_DOMAIN }}
+          VITE_GAME_NAME: Dominion.io
+      - uses: amondnet/vercel-action@v25
+        with:
+          vercel-token: ${{ secrets.VERCEL_TOKEN }}
+          vercel-org-id: ${{ secrets.VERCEL_ORG_ID }}
+          vercel-project-id: ${{ secrets.VERCEL_PROJECT_ID }}
+          vercel-args: "--prod"
+
+  deploy-backend:
+    name: Deploy Backend (Railway)
+    needs: test
+    if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Deploy to Railway
+        uses: bervProject/railway-deploy@main
+        with:
+          railway-token: ${{ secrets.RAILWAY_TOKEN }}
+          service: dominion-server
