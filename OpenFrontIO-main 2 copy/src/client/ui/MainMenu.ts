@@ -1,12 +1,20 @@
 import { LitElement, html, nothing } from "lit";
 import { customElement, property, state } from "lit/decorators.js";
 import { assetUrl } from "../../core/AssetUrls";
+import "./CampaignScreen";
 import "./CosmeticsScreen";
 import "./LeaderboardScreen";
 import "./SettingsPanel";
+import "./TutorialScreen";
 import type { LeaderboardRow } from "./LeaderboardScreen";
 
-type ActivePanel = "cosmetics" | "leaderboard" | "settings" | null;
+type ActivePanel =
+  | "cosmetics"
+  | "leaderboard"
+  | "settings"
+  | "campaign"
+  | "tutorial"
+  | null;
 
 @customElement("dominion-main-menu")
 export class MainMenu extends LitElement {
@@ -78,15 +86,11 @@ export class MainMenu extends LitElement {
             ${this.renderMenuButton("PLAY NOW", "play-now-button", () =>
               this.dispatchEvent(new CustomEvent("play-now", { bubbles: true })),
             )}
-            ${this.renderMenuButton("GAME MODES", "game-modes-button", () =>
-              this.dispatchEvent(
-                new CustomEvent("game-modes", { bubbles: true }),
-              ),
+            ${this.renderMenuButton("CAMPAIGN", "campaign-button", () =>
+              this.openPanel("campaign"),
             )}
             ${this.renderMenuButton("HOW TO PLAY", "how-to-play-button", () =>
-              this.dispatchEvent(
-                new CustomEvent("how-to-play", { bubbles: true }),
-              ),
+              this.openPanel("tutorial"),
             )}
             ${this.renderMenuButton("LEADERBOARD", "leaderboard-button", () =>
               this.openPanel("leaderboard"),
@@ -142,6 +146,8 @@ export class MainMenu extends LitElement {
       cosmetics: "Cosmetics",
       leaderboard: "Leaderboard",
       settings: "Settings",
+      campaign: "Campaign",
+      tutorial: "How to Play",
     };
 
     return html`
@@ -207,6 +213,16 @@ export class MainMenu extends LitElement {
                   class="block"
                 ></dominion-settings-panel>
               </div>`
+            : nothing}
+          ${this.activePanel === "campaign"
+            ? html`<dominion-campaign-screen
+                class="flex h-full flex-col"
+              ></dominion-campaign-screen>`
+            : nothing}
+          ${this.activePanel === "tutorial"
+            ? html`<dominion-tutorial-screen
+                class="flex h-full flex-col"
+              ></dominion-tutorial-screen>`
             : nothing}
         </div>
       </div>
