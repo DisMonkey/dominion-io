@@ -10,6 +10,8 @@ import {
 
 const HASHED_PUBLIC_ASSET_GLOBS = [
   "changelog.md",
+  "favicon.svg",
+  "favicon-192.png",
   "manifest.json",
   "cosmetics/**/*",
   "flags/**/*",

@@ -28,10 +28,10 @@ export class SettingsPanel extends LitElement {
   }
 
   private toggle(
-    key: keyof this,
+    key: string,
     value: boolean,
   ) {
-    (this as unknown as Record<string, boolean>)[key as string] = value;
+    (this as unknown as Record<string, boolean>)[key] = value;
     this.requestUpdate();
     this.save();
   }

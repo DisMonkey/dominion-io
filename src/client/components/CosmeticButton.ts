@@ -124,9 +124,6 @@ export class CosmeticButton extends LitElement {
         .product=${isPurchasable && c?.product ? c.product : null}
         .priceHard=${isPurchasable ? (c?.priceHard ?? null) : null}
         .priceSoft=${isPurchasable ? (c?.priceSoft ?? null) : null}
-        .onPurchaseDollar=${isPurchasable && c?.product
-          ? () => this.onPurchase?.(this.resolved, "dollar")
-          : undefined}
         .onPurchaseHard=${isPurchasable && c?.priceHard !== undefined
           ? () => this.onPurchase?.(this.resolved, "hard")
           : undefined}
