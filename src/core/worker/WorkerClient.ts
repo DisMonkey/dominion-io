@@ -89,7 +89,9 @@ export class WorkerClient {
         id: messageId,
         gameStartInfo: this.gameStartInfo,
         clientID: this.clientID,
-        cdnBase: getCdnBase(),
+        // Fall back to page origin so relative map paths become absolute inside
+        // inline blob workers (which have no document to resolve against).
+        cdnBase: getCdnBase() || window.location.origin,
       });
 
       setTimeout(() => {

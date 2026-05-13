@@ -1,5 +1,6 @@
 {
   "name": "dominion-io",
+  "version": "1.0.1",
   "description": "Dominion.io is a browser-based, massively multiplayer real-time strategy game of conquest, diplomacy, and military command.",
   "homepage": "https://dominion.io/",
   "scripts": {

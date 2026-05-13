@@ -64,7 +64,9 @@ export function buildAssetUrl(
     return baseUrl ? `${baseUrl.replace(/\/+$/, "")}${directUrl}` : directUrl;
   }
 
-  return `/${encodeAssetPath(normalizedPath)}`;
+  return baseUrl
+    ? `${baseUrl.replace(/\/+$/, "")}/${encodeAssetPath(normalizedPath)}`
+    : `/${encodeAssetPath(normalizedPath)}`;
 }
 
 declare global {

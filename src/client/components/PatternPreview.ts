@@ -1,3 +1,4 @@
+// Pattern rendering v2 — direct Canvas 2D draw, no base64 decoding
 import { html, TemplateResult } from "lit";
 import { PlayerPattern } from "../../core/Schemas";
 import { translateText } from "../Utils";
@@ -44,8 +45,8 @@ const previewCache = new Map<string, string>();
 
 export function generatePreviewDataUrl(
   pattern: PlayerPattern,
-  width = 64,
-  height = 64,
+  width = 128,
+  height = 128,
 ): string {
   const primary = pattern.colorPalette?.primaryColor ?? PRIMARY;
   const secondary = pattern.colorPalette?.secondaryColor ?? SECONDARY;
