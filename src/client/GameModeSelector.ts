@@ -33,12 +33,15 @@ const CARD_BG = "bg-surface";
 @customElement("game-mode-selector")
 export class GameModeSelector extends LitElement {
   @state() private lobbies: PublicGames | null = null;
+  @state() private serverOffline = false;
   @state() private mapAspectRatios: Map<GameMapType, number> = new Map();
   private serverTimeOffset: number = 0;
   private defaultLobbyTime: number = 0;
 
-  private lobbySocket = new PublicLobbySocket((lobbies) =>
-    this.handleLobbiesUpdate(lobbies),
+  private lobbySocket = new PublicLobbySocket(
+    (lobbies) => this.handleLobbiesUpdate(lobbies),
+    undefined,
+    () => { this.serverOffline = true; this.requestUpdate(); },
   );
 
   createRenderRoot() {
@@ -150,6 +153,15 @@ export class GameModeSelector extends LitElement {
         <div
           class="grid grid-cols-1 sm:grid-cols-[2fr_1fr] gap-4 sm:h-[min(24rem,40vh)]"
         >
+          ${this.serverOffline
+            ? html`<div class="sm:col-span-2 flex flex-col items-center justify-center gap-3 bg-surface rounded-xl border border-white/10 p-8 text-center">
+                <svg class="w-10 h-10 text-white/30" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M17.25 6.75 22.5 12l-5.25 5.25m-10.5 0L1.5 12l5.25-5.25m7.5-3-4.5 16.5" />
+                </svg>
+                <p class="text-white/50 font-semibold text-sm uppercase tracking-widest">Server Offline</p>
+                <p class="text-white/30 text-xs max-w-xs">The game server is unreachable. You can still play SOLO against bots.</p>
+              </div>`
+            : html`
           <!-- Left col: main card (desktop only) -->
           ${ffa
             ? html`<div class="hidden sm:block">
@@ -185,6 +197,7 @@ export class GameModeSelector extends LitElement {
               ? this.renderLobbyCard(teams, this.getLobbyTitle(teams))
               : nothing}
           </div>
+          `}
         </div>
 
         <!-- Solo: full width, desktop only -->

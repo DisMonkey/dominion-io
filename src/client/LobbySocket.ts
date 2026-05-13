@@ -7,6 +7,8 @@ interface LobbySocketOptions {
   pollIntervalMs?: number;
 }
 
+const DEFAULT_POLL_INTERVAL_MS = 5000;
+
 function getRandomWorkerPath(numWorkers: number): string {
   const workerIndex = Math.floor(Math.random() * numWorkers);
   return `/w${workerIndex}`;
@@ -20,15 +22,22 @@ export class PublicLobbySocket {
   private workerPath: string = "";
   private stopped = true;
 
+  private pollInterval: number | null = null;
+  private pollFailures = 0;
+  private readonly maxPollFailures = 2;
+  private readonly pollIntervalMs: number;
+
   private readonly reconnectDelay: number;
   private readonly maxWsAttempts: number;
 
   constructor(
     private onLobbiesUpdate: (data: PublicGames) => void,
     options?: LobbySocketOptions,
+    private onConnectionFailed?: () => void,
   ) {
     this.reconnectDelay = options?.reconnectDelay ?? 3000;
     this.maxWsAttempts = options?.maxWsAttempts ?? 3;
+    this.pollIntervalMs = options?.pollIntervalMs ?? DEFAULT_POLL_INTERVAL_MS;
   }
 
   async start() {
@@ -43,6 +52,39 @@ export class PublicLobbySocket {
   stop() {
     this.stopped = true;
     this.disconnectWebSocket();
+    this.stopPolling();
+  }
+
+  private startPolling() {
+    if (this.pollInterval !== null || this.stopped) return;
+    console.log("WebSocket blocked — falling back to HTTP polling");
+    this.pollLobbies();
+    this.pollInterval = window.setInterval(() => this.pollLobbies(), this.pollIntervalMs);
+  }
+
+  private stopPolling() {
+    if (this.pollInterval !== null) {
+      clearInterval(this.pollInterval);
+      this.pollInterval = null;
+    }
+  }
+
+  private async pollLobbies() {
+    if (this.stopped) return;
+    try {
+      const url = `${window.location.protocol}//${window.location.host}${this.workerPath}/lobbies`;
+      const res = await fetch(url, { signal: AbortSignal.timeout(4000) });
+      if (!res.ok) throw new Error(`HTTP ${res.status}`);
+      const publicGames = PublicGamesSchema.parse(await res.json());
+      this.pollFailures = 0;
+      this.onLobbiesUpdate(publicGames);
+    } catch {
+      this.pollFailures++;
+      if (this.pollFailures >= this.maxPollFailures) {
+        this.stopPolling();
+        this.onConnectionFailed?.();
+      }
+    }
   }
 
   private connectWebSocket() {
@@ -106,7 +148,8 @@ export class PublicLobbySocket {
       this.wsConnectionAttempts++;
     }
     if (this.wsConnectionAttempts >= this.maxWsAttempts) {
-      console.error("Max WebSocket attempts reached");
+      console.warn("Max WebSocket attempts — switching to HTTP polling fallback");
+      this.startPolling();
     } else {
       this.scheduleReconnect();
     }
@@ -123,7 +166,8 @@ export class PublicLobbySocket {
       this.wsConnectionAttempts++;
     }
     if (this.wsConnectionAttempts >= this.maxWsAttempts) {
-      alert("error connecting to game service");
+      console.warn("Max WebSocket attempts — switching to HTTP polling fallback");
+      this.startPolling();
     } else {
       this.scheduleReconnect();
     }
