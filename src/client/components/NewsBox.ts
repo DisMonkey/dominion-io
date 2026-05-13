@@ -8,7 +8,7 @@ import { translateText } from "../Utils";
 export type { NewsItem };
 
 const DISMISSED_NEWS_KEY = "dismissedNewsItems";
-const CYCLE_INTERVAL_MS = 5000;
+const CYCLE_INTERVAL_MS = 8000;
 
 function getDismissedIds(): Set<string> {
   const raw = localStorage.getItem(DISMISSED_NEWS_KEY);

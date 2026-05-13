@@ -1,5 +1,11 @@
 [
   {
+    "id": "welcome-dominion-2026",
+    "title": "Welcome to Dominion.io — Free forever. No login required. Just play.",
+    "url": null,
+    "type": "announcement"
+  },
+  {
     "id": "firefox-performance-issues-2026",
     "title": "Firefox Performance Issues",
     "descriptionTranslationKey": "news_box.firefox_warning",
@@ -7,24 +13,51 @@
     "type": "warning"
   },
   {
-    "id": "clan-tournament-spring-2026",
-    "title": "Upcoming: Spring Clan Tournament",
-    "description": "2v2 clan battles — Sign up on Discord before April 12",
-    "url": "https://discord.gg/dominion",
-    "type": "tournament"
+    "id": "tip-alliances-2026",
+    "title": "Tip: Form alliances early — you're stronger together than alone.",
+    "url": null,
+    "type": "announcement"
   },
   {
-    "id": "clan-tournaments-2026",
-    "title": "Clan Tournaments",
-    "description": "Join a clan and compete in weekly tournaments on Discord!",
-    "url": "https://discord.gg/dominion",
-    "type": "tournament"
+    "id": "tip-attack-weak-2026",
+    "title": "Tip: Attack players with low troop counts on your border for fast expansion.",
+    "url": null,
+    "type": "announcement"
   },
   {
-    "id": "tutorial-2026",
-    "title": "New Player Tutorial",
-    "description": "Learn the basics of Dominion.io in this video guide",
-    "url": "https://www.youtube.com/watch?v=EN2oOog3pSs",
-    "type": "tutorial"
+    "id": "tip-blitz-2026",
+    "title": "Tip: Use the Blitz ability at the right moment to turn the tide of battle.",
+    "url": null,
+    "type": "announcement"
+  },
+  {
+    "id": "tip-capital-2026",
+    "title": "Tip: Capturing a capital instantly takes all their territory.",
+    "url": null,
+    "type": "announcement"
+  },
+  {
+    "id": "tip-supply-2026",
+    "title": "Tip: Build supply hubs to keep distant territories well supplied.",
+    "url": null,
+    "type": "announcement"
+  },
+  {
+    "id": "leaderboard-2026",
+    "title": "Climb the leaderboard — stats are tracked for logged-in players.",
+    "url": null,
+    "type": "announcement"
+  },
+  {
+    "id": "flags-2026",
+    "title": "Choose your flag from 623 flags spanning ancient empires to modern nations.",
+    "url": null,
+    "type": "announcement"
+  },
+  {
+    "id": "game-modes-2026",
+    "title": "4 game modes: Classic, Blitz, Team Domination, and Cold War.",
+    "url": null,
+    "type": "announcement"
   }
 ]

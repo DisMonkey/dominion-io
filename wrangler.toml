@@ -1,0 +1,7 @@
+name = "dominion-io"
+compatibility_date = "2024-01-01"
+
+[[redirects]]
+from = "/*"
+to = "/index.html"
+status = 200

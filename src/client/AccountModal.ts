@@ -8,6 +8,10 @@ import {
 import { getRuntimeClientServerConfig } from "../core/configuration/ConfigLoader";
 import { fetchPlayerById, getUserMe } from "./Api";
 import { logOut, sendMagicLink } from "./Auth";
+import {
+  isFirebaseConfigured,
+  signInWithGoogle,
+} from "./auth/FirebaseAuth";
 import "./components/baseComponents/stats/DiscordUserHeader";
 import "./components/baseComponents/stats/GameList";
 import "./components/baseComponents/stats/PlayerStatsTable";
@@ -342,14 +346,16 @@ export class AccountModal extends BaseModal {
     }
   }
 
-  private handleGoogleLogin() {
-    // Firebase Google Auth — configure VITE_FIREBASE_API_KEY + VITE_FIREBASE_AUTH_DOMAIN env vars to enable
-    const authDomain = (import.meta as Record<string, unknown> & { env?: Record<string, string> })?.env?.VITE_FIREBASE_AUTH_DOMAIN;
-    if (!authDomain) {
-      alert("Google sign-in requires Firebase configuration. Playing as guest is fully supported — no login needed!");
+  private async handleGoogleLogin() {
+    if (!isFirebaseConfigured()) {
+      alert("Google sign-in is not yet configured for this deployment. Playing as guest is fully supported — no login needed!");
       return;
     }
-    window.location.href = `https://${authDomain}/auth/google`;
+    const user = await signInWithGoogle();
+    if (user) {
+      this.close();
+      window.location.reload();
+    }
   }
 
   protected onOpen(): void {

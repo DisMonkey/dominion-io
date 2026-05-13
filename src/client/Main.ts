@@ -276,7 +276,7 @@ class Client {
   private joinModal: JoinLobbyModal;
   private gameModeSelector: GameModeSelector;
   private userSettings: UserSettings = new UserSettings();
-  private storeModal: StoreModal;
+  private storeModal: StoreModal | null = null;
   private tokenLoginModal: TokenLoginModal;
   private matchmakingModal: MatchmakingModal;
   private mostRecentJoinEvent: number;
@@ -395,9 +395,9 @@ class Client {
       });
     });
 
-    this.storeModal = document.getElementById("page-item-store") as StoreModal;
-    if (!this.storeModal || !(this.storeModal instanceof StoreModal)) {
-      console.warn("Store modal element not found");
+    const storeEl = document.getElementById("page-item-store");
+    if (storeEl instanceof StoreModal) {
+      this.storeModal = storeEl;
     }
 
     const patternsModal = document.getElementById(
@@ -419,20 +419,12 @@ class Client {
       if (mobilePat) mobilePat.style.display = "none";
     }
 
-    if (!this.storeModal || !(this.storeModal instanceof StoreModal)) {
-      console.warn("Store modal element not found");
-    }
-
-    // We no longer need to manually manage the preview button as PatternInput handles it component-side.
-    // However, we still want to ensure the modal can be opened.
-    // The setupPatternInput above handles the click event for the new buttons.
-
-    this.storeModal.refresh();
+    this.storeModal?.refresh();
 
     window.addEventListener("showPage", (e: any) => {
       if (typeof e?.detail === "string" && e.detail === "page-play") {
         setTimeout(() => {
-          this.storeModal.refresh();
+          this.storeModal?.refresh();
         }, 50);
       }
     });
@@ -707,7 +699,7 @@ class Client {
       } else {
         alertAndStrip(`purchase succeeded: ${cosmeticName}`);
         setCosmetic();
-        this.storeModal.refresh();
+        this.storeModal?.refresh();
       }
       return;
     }
@@ -1034,10 +1026,18 @@ const hideCrazyGamesElements = () => {
   }
 };
 
+function removeLoadingScreen() {
+  const el = document.getElementById("dominion-loading");
+  if (!el) return;
+  el.style.transition = "opacity 0.4s ease-out";
+  el.style.opacity = "0";
+  setTimeout(() => el.remove(), 420);
+}
+
 // Initialize the client when the DOM is loaded
 const bootstrap = () => {
   initLayout();
-  new Client().initialize();
+  new Client().initialize().then(removeLoadingScreen).catch(removeLoadingScreen);
   initNavigation();
 
   // Hide elements immediately

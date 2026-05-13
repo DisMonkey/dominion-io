@@ -9,6 +9,9 @@
     <title data-i18n="main.title">Dominion.io</title>
     <link rel="manifest" href="<%- manifestHref %>" />
     <link rel="icon" type="image/svg+xml" href="<%- faviconHref %>" />
+    <!-- Content Security Policy -->
+    <meta http-equiv="Content-Security-Policy"
+      content="default-src 'self'; script-src 'self' 'unsafe-inline' https://challenges.cloudflare.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com data:; img-src 'self' data: blob: https:; connect-src 'self' wss: https:; frame-src https://challenges.cloudflare.com; worker-src blob: 'self';" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
@@ -135,6 +138,26 @@
         style="background-image: var(--mobile-logo-image-url); opacity: 0.5"
       ></div>
       <div class="dominion-scanline absolute inset-0 opacity-70"></div>
+    </div>
+
+    <!-- Loading Screen — hidden by Main.ts after init -->
+    <div id="dominion-loading" style="position:fixed;inset:0;z-index:99999;background:#0d1117;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1.5rem;font-family:Rajdhani,Arial,sans-serif;">
+      <div style="display:flex;flex-direction:column;align-items:center;gap:0.5rem;">
+        <svg width="220" height="56" viewBox="0 0 540 108" xmlns="http://www.w3.org/2000/svg" style="max-width:90vw;height:auto;">
+          <rect width="540" height="108" rx="8" fill="#0D1117"/>
+          <path d="M56 12L96 28V54C96 75 81 92 56 100C31 92 16 75 16 54V28L56 12Z" fill="#161D22" stroke="#C8973A" stroke-width="3"/>
+          <circle cx="56" cy="56" r="19" stroke="#C8973A" stroke-width="3"/>
+          <circle cx="56" cy="56" r="5" fill="#D64045"/>
+          <text x="122" y="69" fill="#E8E0D0" font-family="Rajdhani,Arial,sans-serif" font-size="48" font-weight="800" letter-spacing="6">DOMINION</text>
+          <text x="416" y="69" fill="#C8973A" font-family="Rajdhani,Arial,sans-serif" font-size="36" font-weight="700" letter-spacing="2">.IO</text>
+        </svg>
+        <div style="color:#C8973A;font-size:0.7rem;letter-spacing:0.25em;text-transform:uppercase;font-family:'Share Tech Mono',monospace;">COMMAND NET</div>
+      </div>
+      <div style="width:240px;max-width:80vw;height:3px;background:#1e2530;border-radius:999px;overflow:hidden;">
+        <div id="dominion-loading-bar" style="height:100%;background:linear-gradient(90deg,#C8973A,#D64045);border-radius:999px;animation:dload 1.8s ease-in-out infinite;"></div>
+      </div>
+      <div style="color:#6b7280;font-size:0.7rem;letter-spacing:0.1em;text-transform:uppercase;">Loading…</div>
+      <style>@keyframes dload{0%{width:0%;margin-left:0}50%{width:60%;margin-left:20%}100%{width:0%;margin-left:100%}}</style>
     </div>
 
     <!-- LEFT SIDEBAR MENU -->

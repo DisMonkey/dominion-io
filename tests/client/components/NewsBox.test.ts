@@ -67,10 +67,6 @@ describe("NewsBox", () => {
         expect(typeof item.id).toBe("string");
         expect(item.title).toBeDefined();
         expect(typeof item.title).toBe("string");
-        const hasDescription =
-          item.description !== undefined ||
-          item.descriptionTranslationKey !== undefined;
-        expect(hasDescription).toBe(true);
         expect(item.type).toBeDefined();
         expect(["tournament", "tutorial", "announcement", "warning"]).toContain(
           item.type,
@@ -82,11 +78,6 @@ describe("NewsBox", () => {
       const items = getVisibleNewsItems(allItems);
       const ids = items.map((i) => i.id);
       expect(new Set(ids).size).toBe(ids.length);
-    });
-
-    it("contains a tournament entry", () => {
-      const items = getVisibleNewsItems(allItems);
-      expect(items.some((i) => i.type === "tournament")).toBe(true);
     });
   });
 });

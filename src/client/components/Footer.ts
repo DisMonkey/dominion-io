@@ -29,19 +29,12 @@ export class Footer extends LitElement {
               draggable="false"
             />
           </a>
-          <
-            href="https://dominion.io/wiki"
+          <a
+            href="https://github.com/openfrontio/OpenFrontIO"
             target="_blank"
             rel="noopener noreferrer"
-            class="opacity-60 hover:opacity-100 hover:scale-110 transition-all"
-          >
-            <img
-              src=${assetUrl("images/DominionFavicon.svg")}
-              data-i18n-alt="main.wiki"
-              class="h-6 w-6 lg:h-7 lg:w-7 object-contain pointer-events-none"
-              draggable="false"
-            />
-          </a>
+            class="opacity-60 hover:opacity-100 hover:scale-110 transition-all text-xs text-white/50 hover:text-white"
+          >Based on OpenFront.io</a>
           <lang-selector
             class="absolute right-4 top-0 sm:top-[10px]"
           ></lang-selector>

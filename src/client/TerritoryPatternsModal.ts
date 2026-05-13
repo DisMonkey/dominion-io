@@ -148,18 +148,6 @@ export class TerritoryPatternsModal extends BaseModal {
             />
           </div>
         </div>
-        <div class="flex justify-center py-3 shrink-0">
-          <o-button
-            class="no-crazygames"
-            variant="primary"
-            size="sm"
-            translationKey="main.store"
-            @click=${() => {
-              this.close();
-              window.showPage?.("page-item-store");
-            }}
-          ></o-button>
-        </div>
         <div
           class="flex-1 overflow-y-auto px-3 pb-3 scrollbar-thin scrollbar-thumb-white/20 scrollbar-track-transparent mr-1"
         >
