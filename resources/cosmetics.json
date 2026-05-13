@@ -1,0 +1,41 @@
+{
+  "colorPalettes": {},
+  "patterns": {
+    "stripes": {
+      "name": "stripes",
+      "affiliateCode": null,
+      "product": null,
+      "rarity": "common",
+      "pattern": "AAAAAA"
+    },
+    "checkerboard": {
+      "name": "checkerboard",
+      "affiliateCode": null,
+      "product": null,
+      "rarity": "common",
+      "pattern": "AAAAAA"
+    },
+    "dots": {
+      "name": "dots",
+      "affiliateCode": null,
+      "product": null,
+      "rarity": "common",
+      "pattern": "AAAAAA"
+    },
+    "diagonal": {
+      "name": "diagonal",
+      "affiliateCode": null,
+      "product": null,
+      "rarity": "common",
+      "pattern": "AAAAAA"
+    },
+    "cross": {
+      "name": "cross",
+      "affiliateCode": null,
+      "product": null,
+      "rarity": "common",
+      "pattern": "AAAAAA"
+    }
+  },
+  "flags": {}
+}

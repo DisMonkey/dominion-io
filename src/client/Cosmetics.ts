@@ -85,27 +85,35 @@ export async function fetchCosmetics(): Promise<Cosmetics | null> {
     return __cosmetics;
   }
   __cosmetics = (async () => {
+    const tryFetch = async (url: string) => {
+      const response = await fetch(url);
+      if (!response.ok) throw new Error(`HTTP ${response.status}`);
+      return response.json();
+    };
+
+    let json: unknown = null;
     try {
-      const response = await fetch(`${getApiBase()}/cosmetics.json`);
-      if (!response.ok) {
-        console.error(`HTTP error! status: ${response.status}`);
+      json = await tryFetch(`${getApiBase()}/cosmetics.json`);
+    } catch {
+      try {
+        json = await tryFetch(`/cosmetics.json`);
+      } catch (err) {
+        console.warn("cosmetics.json unavailable, running without cosmetics", err);
         return null;
       }
-      const result = CosmeticsSchema.safeParse(await response.json());
-      if (!result.success) {
-        console.error(`Invalid cosmetics: ${result.error.message}`);
-        return null;
-      }
-      const patternKeys = Object.keys(result.data.patterns).sort();
-      const hashInput = patternKeys
-        .map((k) => k + (result.data.patterns[k].product ? "sale" : ""))
-        .join(",");
-      __cosmeticsHash = simpleHash(hashInput);
-      return result.data;
-    } catch (error) {
-      console.error("Error getting cosmetics:", error);
+    }
+
+    const result = CosmeticsSchema.safeParse(json);
+    if (!result.success) {
+      console.error(`Invalid cosmetics: ${result.error.message}`);
       return null;
     }
+    const patternKeys = Object.keys(result.data.patterns).sort();
+    const hashInput = patternKeys
+      .map((k) => k + (result.data.patterns[k].product ? "sale" : ""))
+      .join(",");
+    __cosmeticsHash = simpleHash(hashInput);
+    return result.data;
   })();
   return __cosmetics;
 }
