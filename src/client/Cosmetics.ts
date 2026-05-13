@@ -91,7 +91,7 @@ export async function fetchCosmetics(): Promise<Cosmetics | null> {
       return response.json();
     };
 
-    let json: unknown = null;
+    let json: unknown;
     try {
       json = await tryFetch(`${getApiBase()}/cosmetics.json`);
     } catch {
