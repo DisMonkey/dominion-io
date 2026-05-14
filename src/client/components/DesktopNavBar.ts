@@ -52,6 +52,9 @@ export class DesktopNavBar extends LitElement {
       <nav
         class="hidden lg:flex w-full bg-zinc-900/90 backdrop-blur-md items-center justify-center gap-8 py-4 shrink-0 z-50 relative"
       >
+        <div class="absolute right-4 inset-y-0 flex items-center">
+          <dominion-server-status-dot></dominion-server-status-dot>
+        </div>
         <div class="flex flex-col items-center justify-center">
           <div class="h-8">
             <img

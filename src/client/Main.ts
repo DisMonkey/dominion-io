@@ -100,6 +100,8 @@ import "./ui/PerfMonitor";
 import "./ui/ResourceBar";
 import "./ui/SettingsPanel";
 import "./ui/TechPanel";
+import "./ui/WakeupScreen";
+import "./ui/ServerStatusDot";
 
 function updateAccountNavButton(userMeResponse: UserMeResponse | false) {
   const button = document.getElementById("nav-account-button");
