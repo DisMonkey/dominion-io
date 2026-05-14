@@ -6,7 +6,12 @@ import { GameType } from "../../../core/game/Game";
 import { GameView } from "../../../core/game/GameView";
 import { crazyGamesSDK } from "../../CrazyGamesSDK";
 import { TogglePauseIntentEvent } from "../../InputHandler";
-import { PauseGameIntentEvent, SendWinnerEvent } from "../../Transport";
+import {
+  PauseGameIntentEvent,
+  SendWinnerEvent,
+  ToggleFocusPanelEvent,
+  ToggleTechPanelEvent,
+} from "../../Transport";
 import { translateText } from "../../Utils";
 import { ImmunityBarVisibleEvent } from "./ImmunityTimer";
 import { Layer } from "./Layer";
@@ -197,6 +202,14 @@ export class GameRightSidebar extends LitElement implements Layer {
     );
   }
 
+  private onTechPanelClick() {
+    this.eventBus.emit(new ToggleTechPanelEvent());
+  }
+
+  private onFocusPanelClick() {
+    this.eventBus.emit(new ToggleFocusPanelEvent());
+  }
+
   private onFullscreenButtonClick() {
     if (!document.fullscreenElement) {
       document.documentElement.requestFullscreen().catch((err) => {
@@ -231,6 +244,22 @@ export class GameRightSidebar extends LitElement implements Layer {
 
         <!-- Buttons -->
         ${this.maybeRenderReplayButtons()}
+
+        <div
+          class="cursor-pointer text-sm select-none leading-none"
+          title="Tech Tree"
+          @click=${this.onTechPanelClick}
+        >
+          🔬
+        </div>
+
+        <div
+          class="cursor-pointer text-sm select-none leading-none"
+          title="National Focus"
+          @click=${this.onFocusPanelClick}
+        >
+          🎯
+        </div>
 
         <div class="cursor-pointer" @click=${this.onSettingsButtonClick}>
           <img src=${settingsIcon} alt="settings" width="20" height="20" />

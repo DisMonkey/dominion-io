@@ -17,12 +17,11 @@ const STORAGE_KEY_UID = "dominion_user_uid";
 let auth: Auth | null = null;
 
 function getFirebaseConfig() {
-  const env = (import.meta as Record<string, unknown> & { env?: Record<string, string> })?.env ?? {};
   return {
-    apiKey: env["VITE_FIREBASE_API_KEY"],
-    authDomain: env["VITE_FIREBASE_AUTH_DOMAIN"],
-    projectId: env["VITE_FIREBASE_PROJECT_ID"],
-    appId: env["VITE_FIREBASE_APP_ID"],
+    apiKey: String(import.meta.env.VITE_FIREBASE_API_KEY ?? ""),
+    authDomain: String(import.meta.env.VITE_FIREBASE_AUTH_DOMAIN ?? ""),
+    projectId: String(import.meta.env.VITE_FIREBASE_PROJECT_ID ?? ""),
+    appId: String(import.meta.env.VITE_FIREBASE_APP_ID ?? ""),
   };
 }
 

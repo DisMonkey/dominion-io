@@ -48,6 +48,8 @@ import { UILayer } from "./layers/UILayer";
 import { UnitDisplay } from "./layers/UnitDisplay";
 import { UnitLayer } from "./layers/UnitLayer";
 import { WinModal } from "./layers/WinModal";
+import { NationalFocusPanel } from "../ui/NationalFocusPanel";
+import { TechPanel } from "../ui/TechPanel";
 
 export function createRenderer(
   canvas: HTMLCanvasElement,
@@ -272,6 +274,23 @@ export function createRenderer(
     console.error("in-game promo not found");
   }
   inGamePromo.game = game;
+
+  const techPanel = document.querySelector(
+    "dominion-tech-panel",
+  ) as TechPanel | null;
+  if (techPanel instanceof TechPanel) {
+    techPanel.eventBus = eventBus;
+    techPanel.game = game;
+    techPanel.init();
+  }
+
+  const focusPanel = document.querySelector(
+    "dominion-national-focus-panel",
+  ) as NationalFocusPanel | null;
+  if (focusPanel instanceof NationalFocusPanel) {
+    focusPanel.eventBus = eventBus;
+    focusPanel.init();
+  }
 
   // When updating these layers please be mindful of the order.
   // Try to group layers by the return value of shouldTransform.

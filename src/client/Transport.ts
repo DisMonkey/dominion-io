@@ -26,6 +26,7 @@ import {
   ServerMessageSchema,
   Winner,
 } from "../core/Schemas";
+import { Tech } from "../core/TechTree";
 import { getPersistentID, getPlayToken } from "./Auth";
 import { LobbyConfig } from "./ClientGameRunner";
 import { LocalServer } from "./LocalServer";
@@ -182,6 +183,13 @@ export class SendUpdateGameConfigIntentEvent implements GameEvent {
 
 export class SendStartGameEvent implements GameEvent {}
 
+export class SendResearchIntentEvent implements GameEvent {
+  constructor(public readonly tech: Tech) {}
+}
+
+export class ToggleTechPanelEvent implements GameEvent {}
+export class ToggleFocusPanelEvent implements GameEvent {}
+
 export class Transport {
   private socket: WebSocket | null = null;
 
@@ -276,6 +284,10 @@ export class Transport {
     );
 
     this.eventBus.on(SendStartGameEvent, () => this.onSendStartGame());
+
+    this.eventBus.on(SendResearchIntentEvent, (e) =>
+      this.onSendResearchIntent(e),
+    );
   }
 
   private startPing() {
@@ -688,6 +700,10 @@ export class Transport {
 
   private onSendStartGame() {
     this.sendIntent({ type: "start_game" });
+  }
+
+  private onSendResearchIntent(event: SendResearchIntentEvent) {
+    this.sendIntent({ type: "research", version: 1, tech: event.tech });
   }
 
   private sendIntent(intent: Intent) {
