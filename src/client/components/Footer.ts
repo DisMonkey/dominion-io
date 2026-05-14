@@ -16,28 +16,26 @@ export class Footer extends LitElement {
         <div
           class="flex items-center justify-center gap-4 lg:gap-6 pt-2 w-full relative"
         >
-          <a
-            href="https://github.com/dominion-io/dominion-io"
-            target="_blank"
-            rel="noopener noreferrer"
-            class="opacity-60 hover:opacity-100 hover:scale-110 transition-all"
-          >
-            <img
-              src=${assetUrl("icons/github-mark-white.svg")}
-              data-i18n-alt="news.github_link"
-              class="h-6 w-6 lg:h-7 lg:w-7 object-contain pointer-events-none"
-              draggable="false"
-            />
-          </a>
-          <a
-            href="https://github.com/openfrontio/OpenFrontIO"
-            target="_blank"
-            rel="noopener noreferrer"
-            class="opacity-60 hover:opacity-100 hover:scale-110 transition-all text-xs text-white/50 hover:text-white"
-          >Based on OpenFront.io</a>
           <lang-selector
             class="absolute right-4 top-0 sm:top-[10px]"
           ></lang-selector>
+          <span class="text-xs text-white/50">
+            Created by <span class="text-[#C8973A] font-semibold">DisMonkey</span>
+            · Built with
+            <a
+              href="https://claude.ai/code"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="text-white/50 hover:text-white transition-colors underline underline-offset-2"
+            >Claude Code</a>
+            · Based on
+            <a
+              href="https://github.com/openfrontio/OpenFrontIO"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="text-white/50 hover:text-white transition-colors underline underline-offset-2"
+            >OpenFront.io</a>
+          </span>
         </div>
         <div
           class="text-xs mt-1 lg:mt-2 flex items-center justify-center gap-4 px-4"
@@ -55,12 +53,6 @@ export class Footer extends LitElement {
             target="_blank"
             class="hover:text-white transition-colors"
           ></a>
-          <a
-            href="https://github.com/openfrontio/OpenFrontIO"
-            target="_blank"
-            rel="noopener"
-            class="hover:text-white transition-colors"
-          >Based on OpenFront.io</a>
         </div>
       </footer>
     `;

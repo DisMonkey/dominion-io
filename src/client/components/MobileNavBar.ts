@@ -142,6 +142,10 @@ export class MobileNavBar extends LitElement {
             ? this._renderDot("bg-yellow-400")
             : ""}
         </div>
+        <button
+          class="block w-full text-left font-bold uppercase tracking-[0.05em] text-white/70 transition-all duration-200 cursor-pointer hover:text-malibu-blue hover:translate-x-2.5 text-[clamp(18px,2.8vh,32px)] py-[clamp(0.2rem,0.8vh,0.75rem)]"
+          @click=${() => window.dispatchEvent(new Event("open-about-modal"))}
+        >About</button>
         <div
           class="flex flex-col w-full mt-auto [.in-game_&]:hidden items-end justify-end pt-4 border-t border-white/10"
         ></div>

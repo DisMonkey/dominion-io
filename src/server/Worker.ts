@@ -47,6 +47,26 @@ export async function startWorker() {
   log.info(`Worker starting...`);
 
   const app = express();
+
+  // Allow cross-origin requests from all Dominion.io frontends
+  app.use((_req, res, next) => {
+    res.setHeader("Access-Control-Allow-Origin", "*");
+    res.setHeader(
+      "Access-Control-Allow-Methods",
+      "GET, POST, PUT, DELETE, OPTIONS",
+    );
+    res.setHeader(
+      "Access-Control-Allow-Headers",
+      "Content-Type, Authorization, X-Requested-With",
+    );
+    res.setHeader("Access-Control-Allow-Credentials", "true");
+    next();
+  });
+
+  app.options("*", (_req, res) => {
+    res.sendStatus(204);
+  });
+
   app.use(express.json({ limit: "5mb" }));
   const server = http.createServer(app);
   const wss = new WebSocketServer({

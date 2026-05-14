@@ -102,6 +102,7 @@ import "./ui/SettingsPanel";
 import "./ui/TechPanel";
 import "./ui/WakeupScreen";
 import "./ui/ServerStatusDot";
+import "./ui/AboutModal";
 
 function updateAccountNavButton(userMeResponse: UserMeResponse | false) {
   const button = document.getElementById("nav-account-button");
