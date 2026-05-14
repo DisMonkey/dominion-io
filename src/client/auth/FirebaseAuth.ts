@@ -14,27 +14,29 @@ const STORAGE_KEY_EMAIL = "dominion_user_email";
 const STORAGE_KEY_PHOTO = "dominion_user_photo_url";
 const STORAGE_KEY_UID = "dominion_user_uid";
 
+const firebaseConfig = {
+  apiKey: String(import.meta.env["VITE_FIREBASE_API_KEY"] ?? ""),
+  authDomain: String(import.meta.env["VITE_FIREBASE_AUTH_DOMAIN"] ?? ""),
+  projectId: String(import.meta.env["VITE_FIREBASE_PROJECT_ID"] ?? ""),
+  appId: String(import.meta.env["VITE_FIREBASE_APP_ID"] ?? ""),
+};
+
 let auth: Auth | null = null;
 
-function getFirebaseConfig() {
-  return {
-    apiKey: String(import.meta.env.VITE_FIREBASE_API_KEY ?? ""),
-    authDomain: String(import.meta.env.VITE_FIREBASE_AUTH_DOMAIN ?? ""),
-    projectId: String(import.meta.env.VITE_FIREBASE_PROJECT_ID ?? ""),
-    appId: String(import.meta.env.VITE_FIREBASE_APP_ID ?? ""),
-  };
-}
-
 function isConfigured(): boolean {
-  const cfg = getFirebaseConfig();
-  return !!(cfg.apiKey && cfg.authDomain && cfg.projectId && cfg.appId);
+  return !!(
+    firebaseConfig.apiKey &&
+    firebaseConfig.authDomain &&
+    firebaseConfig.projectId &&
+    firebaseConfig.appId
+  );
 }
 
 function getFirebaseAuth(): Auth | null {
   if (auth) return auth;
   if (!isConfigured()) return null;
   try {
-    const app = initializeApp(getFirebaseConfig());
+    const app = initializeApp(firebaseConfig);
     auth = getAuth(app);
     return auth;
   } catch (e) {
@@ -63,7 +65,11 @@ export async function signInWithGoogle(): Promise<User | null> {
 export async function signOut(): Promise<void> {
   const a = getFirebaseAuth();
   if (a) {
-    try { await _signOut(a); } catch { /* ignore */ }
+    try {
+      await _signOut(a);
+    } catch {
+      /* ignore */
+    }
   }
   clearPersistedUser();
 }
@@ -72,7 +78,9 @@ export function getCurrentUser(): User | null {
   return getFirebaseAuth()?.currentUser ?? null;
 }
 
-export function onAuthStateChanged(callback: (user: User | null) => void): () => void {
+export function onAuthStateChanged(
+  callback: (user: User | null) => void,
+): () => void {
   const a = getFirebaseAuth();
   if (!a) {
     callback(null);
@@ -102,7 +110,8 @@ export function getPersistedUID(): string | null {
 }
 
 function persistUser(user: User): void {
-  if (user.displayName) localStorage.setItem(STORAGE_KEY_NAME, user.displayName);
+  if (user.displayName)
+    localStorage.setItem(STORAGE_KEY_NAME, user.displayName);
   if (user.email) localStorage.setItem(STORAGE_KEY_EMAIL, user.email);
   if (user.photoURL) localStorage.setItem(STORAGE_KEY_PHOTO, user.photoURL);
   localStorage.setItem(STORAGE_KEY_UID, user.uid);
