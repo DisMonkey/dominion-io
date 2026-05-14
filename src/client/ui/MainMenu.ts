@@ -1,6 +1,7 @@
 import { LitElement, html, nothing } from "lit";
 import { customElement, property, state } from "lit/decorators.js";
 import { assetUrl } from "../../core/AssetUrls";
+import { getApiBase } from "../Api";
 import "./CampaignScreen";
 import "./CosmeticsScreen";
 import "./LeaderboardScreen";
@@ -42,7 +43,7 @@ export class MainMenu extends LitElement {
   private async fetchLeaderboard() {
     this.leaderboardLoading = true;
     try {
-      const res = await fetch("/api/leaderboard?limit=50");
+      const res = await fetch(`${getApiBase()}/api/leaderboard?limit=50`);
       if (res.ok) {
         const data = (await res.json()) as { players: LeaderboardRow[] };
         this.leaderboardRows = data.players ?? [];

@@ -6,6 +6,11 @@ export interface ServerStatusInfo {
   games: number;
 }
 
+const _serverBase = (() => {
+  const d = process?.env?.WEBSOCKET_URL;
+  return d ? `https://${d}` : "";
+})();
+
 class ServerStatusService extends EventTarget {
   private _state: ServerStatusState = "checking";
   private _players = 0;
@@ -44,7 +49,7 @@ class ServerStatusService extends EventTarget {
     try {
       const ctrl = new AbortController();
       const tid = setTimeout(() => ctrl.abort(), 8_000);
-      const res = await fetch("/health", { signal: ctrl.signal });
+      const res = await fetch(`${_serverBase}/health`, { signal: ctrl.signal });
       clearTimeout(tid);
       if (res.ok) {
         const data: { players?: number; games?: number } = await res
@@ -73,7 +78,7 @@ class ServerStatusService extends EventTarget {
     try {
       const ctrl = new AbortController();
       const tid = setTimeout(() => ctrl.abort(), 5_000);
-      await fetch("/health", { signal: ctrl.signal });
+      await fetch(`${_serverBase}/health`, { signal: ctrl.signal });
       clearTimeout(tid);
     } catch {
       // Silent — this is just a keep-alive

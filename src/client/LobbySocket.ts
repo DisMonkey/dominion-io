@@ -72,7 +72,11 @@ export class PublicLobbySocket {
   private async pollLobbies() {
     if (this.stopped) return;
     try {
-      const url = `${window.location.protocol}//${window.location.host}${this.workerPath}/lobbies`;
+      const serverHost = process?.env?.WEBSOCKET_URL || window.location.host;
+      const httpProtocol = process?.env?.WEBSOCKET_URL
+        ? "https:"
+        : window.location.protocol;
+      const url = `${httpProtocol}//${serverHost}${this.workerPath}/lobbies`;
       const res = await fetch(url, { signal: AbortSignal.timeout(4000) });
       if (!res.ok) throw new Error(`HTTP ${res.status}`);
       const publicGames = PublicGamesSchema.parse(await res.json());
@@ -95,8 +99,13 @@ export class PublicLobbySocket {
         this.ws = null;
       }
 
-      const protocol = window.location.protocol === "https:" ? "wss:" : "ws:";
-      const wsUrl = `${protocol}//${window.location.host}${this.workerPath}/lobbies`;
+      const configuredWsHost = process?.env?.WEBSOCKET_URL;
+      const wsHost = configuredWsHost || window.location.host;
+      const protocol =
+        configuredWsHost || window.location.protocol === "https:"
+          ? "wss:"
+          : "ws:";
+      const wsUrl = `${protocol}//${wsHost}${this.workerPath}/lobbies`;
 
       this.ws = new WebSocket(wsUrl);
       this.wsAttemptCounted = false;

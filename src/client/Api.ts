@@ -134,13 +134,13 @@ export async function purchaseWithCurrency(
 }
 
 export function getApiBase() {
-  const domainname = getAudience();
+  const apiDomain = process?.env?.API_DOMAIN;
+  if (apiDomain) {
+    return `https://${apiDomain}`;
+  }
 
+  const domainname = getAudience();
   if (domainname === "localhost") {
-    const apiDomain = process?.env?.API_DOMAIN;
-    if (apiDomain) {
-      return `https://${apiDomain}`;
-    }
     return localStorage.getItem("apiHost") ?? "http://localhost:8787";
   }
 
