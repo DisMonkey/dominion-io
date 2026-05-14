@@ -1,15 +1,12 @@
 import fs from "fs/promises";
 import path from "path";
-import { normalizeAssetPath } from "src/core/AssetUrls";
-import { GameMapType } from "src/core/game/Game";
-import { fileURLToPath } from "url";
+import { normalizeAssetPath } from "../core/AssetUrls";
+import { GameMapType } from "../core/game/Game";
 import { logger } from "./Logger";
 import { getRuntimeAssetManifest } from "./RuntimeAssetManifest";
 
 const log = logger.child({ component: "MapLandTiles" });
 
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
 const staticDir = path.join(__dirname, "../../static");
 const resourcesDir = path.join(__dirname, "../../resources");
 

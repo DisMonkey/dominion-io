@@ -4,7 +4,6 @@ import rateLimit from "express-rate-limit";
 import http from "http";
 import ipAnonymize from "ip-anonymize";
 import path from "path";
-import { fileURLToPath } from "url";
 import { WebSocket, WebSocketServer } from "ws";
 import { z } from "zod";
 import { getServerConfigFromServer } from "../core/configuration/ConfigLoader";
@@ -46,9 +45,6 @@ const playlist = new MapPlaylist();
 // Worker setup
 export async function startWorker() {
   log.info(`Worker starting...`);
-
-  const __filename = fileURLToPath(import.meta.url);
-  const __dirname = path.dirname(__filename);
 
   const app = express();
   app.use(express.json({ limit: "5mb" }));

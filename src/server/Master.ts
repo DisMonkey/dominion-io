@@ -4,7 +4,6 @@ import express, { type Request, type Response } from "express";
 import rateLimit from "express-rate-limit";
 import http from "http";
 import path from "path";
-import { fileURLToPath } from "url";
 import { GameEnv } from "../core/configuration/Config";
 import { getServerConfigFromServer } from "../core/configuration/ConfigLoader";
 import { LeaderboardService } from "./leaderboard/LeaderboardService";
@@ -24,9 +23,6 @@ const app = express();
 const server = http.createServer(app);
 
 const log = logger.child({ comp: "m" });
-
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
 
 app.use(express.json());
 

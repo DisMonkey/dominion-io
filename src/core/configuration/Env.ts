@@ -1,67 +1,23 @@
 /**
  * Safely access environment variables in both Node.js and Vite environments.
- * - In Vite (Browser), it uses `import.meta.env`.
- * - In Node.js (Server), it uses `process.env`.
+ * Vite replaces process.env.X statically at build time; Node.js reads it at runtime.
  */
 
-declare global {
-  interface ImportMetaEnv {
-    [key: string]: string | boolean | undefined;
-  }
-  interface ImportMeta {
-    readonly env: ImportMetaEnv;
-  }
-}
-
-function getEnv(key: string, viteKey?: string): string | undefined {
-  const vKey = viteKey ?? key;
-
-  // Try import.meta.env (Vite/Browser)
-  // We use a try-catch block or check existence to avoid ReferenceErrors
-  try {
-    if (typeof import.meta !== "undefined" && import.meta.env) {
-      const val = import.meta.env[vKey] ?? import.meta.env[key];
-      if (val !== undefined) {
-        return String(val);
-      }
-    }
-  } catch {
-    // Ignore errors accessing import.meta
-  }
-
-  // Try process.env (Node.js)
+function getEnv(key: string): string | undefined {
   try {
     if (typeof process !== "undefined" && process.env) {
-      const val = process.env[key];
-      if (val !== undefined) {
-        return val;
-      }
+      return process.env[key];
     }
   } catch {
-    // Ignore errors accessing process
+    // Ignore
   }
-
   return undefined;
 }
 
 export const Env = {
   get GAME_ENV(): string {
-    // Check MODE for Vite, GAME_ENV for Node
-    try {
-      if (
-        typeof import.meta !== "undefined" &&
-        import.meta.env &&
-        import.meta.env.MODE
-      ) {
-        return import.meta.env.MODE;
-      }
-    } catch {
-      // Ignore errors accessing import.meta
-    }
-
     return getEnv("GAME_ENV") ?? "dev";
   },
-
   get STRIPE_PUBLISHABLE_KEY() {
     return getEnv("STRIPE_PUBLISHABLE_KEY");
   },
