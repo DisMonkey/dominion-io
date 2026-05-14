@@ -399,6 +399,7 @@ export const Structures = unitTypeGroup([
 export const BuildMenus = unitTypeGroup([
   ...Structures.types,
   ...BuildableAttacks.types,
+  ...MilitaryUnits.types,
 ] as const);
 
 export const PlayerBuildable = unitTypeGroup([

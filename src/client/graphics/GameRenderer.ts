@@ -49,6 +49,7 @@ import { UnitDisplay } from "./layers/UnitDisplay";
 import { UnitLayer } from "./layers/UnitLayer";
 import { WinModal } from "./layers/WinModal";
 import { NationalFocusPanel } from "../ui/NationalFocusPanel";
+import { ResourceBar } from "../ui/ResourceBar";
 import { TechPanel } from "../ui/TechPanel";
 
 export function createRenderer(
@@ -290,6 +291,13 @@ export function createRenderer(
   if (focusPanel instanceof NationalFocusPanel) {
     focusPanel.eventBus = eventBus;
     focusPanel.init();
+  }
+
+  const resourceBar = document.querySelector(
+    "dominion-resource-bar",
+  ) as ResourceBar | null;
+  if (resourceBar instanceof ResourceBar) {
+    resourceBar.game = game;
   }
 
   // When updating these layers please be mindful of the order.

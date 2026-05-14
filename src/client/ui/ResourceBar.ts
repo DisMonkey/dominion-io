@@ -1,41 +1,73 @@
 import { LitElement, html } from "lit";
 import { customElement, property } from "lit/decorators.js";
+import { UnitType } from "../../core/game/Game";
+import { GameView } from "../../core/game/GameView";
 
 @customElement("dominion-resource-bar")
 export class ResourceBar extends LitElement {
-  @property({ type: Number }) territory = 0;
-  @property({ type: Number }) population = 0;
-  @property({ type: Number }) gold = 0;
-  @property({ type: Number }) production = 0;
-  @property({ type: Number }) energy = 0;
-  @property({ type: Number }) politicalPower = 0;
+  @property({ attribute: false }) game: GameView | null = null;
+
+  private _interval: ReturnType<typeof setInterval> | null = null;
 
   createRenderRoot() {
     return this;
   }
 
+  connectedCallback() {
+    super.connectedCallback();
+    this._interval = setInterval(() => this.requestUpdate(), 500);
+  }
+
+  disconnectedCallback() {
+    super.disconnectedCallback();
+    if (this._interval) {
+      clearInterval(this._interval);
+      this._interval = null;
+    }
+  }
+
   render() {
-    const item = (icon: string, label: string, value: number) => html`
+    const player = this.game?.myPlayer();
+    if (!player || !player.isAlive()) return html``;
+
+    const gold = Number(player.gold());
+    const troops = player.troops();
+    const tiles = player.numTilesOwned();
+    const factories = player
+      .units(UnitType.Factory)
+      .filter((u) => !u.isUnderConstruction()).length;
+    const cities = player
+      .units(UnitType.City)
+      .filter((u) => !u.isUnderConstruction()).length;
+
+    const fmt = (n: number) =>
+      n >= 1_000_000
+        ? `${(n / 1_000_000).toFixed(1)}M`
+        : n >= 1_000
+          ? `${(n / 1_000).toFixed(1)}K`
+          : `${n}`;
+
+    const item = (icon: string, label: string, value: string) => html`
       <div
-        class="flex items-center gap-2 px-3 py-2 rounded border border-dominion-border bg-dominion-bg-panel/80 tabular-nums"
-        aria-label=${label}
+        class="flex items-center gap-1.5 px-2 py-1 rounded bg-black/50 border border-white/10 text-white tabular-nums text-xs leading-none"
+        title=${label}
       >
-        <span aria-hidden="true">${icon}</span>
-        <span>${value.toLocaleString()}</span>
+        <span class="text-[11px]">${icon}</span>
+        <span class="font-mono">${value}</span>
       </div>
     `;
+
     return html`
-      <section
-        class="flex flex-wrap items-center gap-2 text-dominion-text-light"
+      <div
+        class="flex flex-wrap items-center gap-1 pointer-events-none"
         aria-label="Resources"
       >
-        ${item("⌖", "Territory", this.territory)}
-        ${item("👥", "Population", this.population)}
-        ${item("¤", "Gold", this.gold)}
-        ${item("▣", "Production", this.production)}
-        ${item("⚡", "Energy", this.energy)}
-        ${item("PP", "Political Power", this.politicalPower)}
-      </section>
+        ${item("⌖", "Territory", fmt(tiles))}
+        ${item("⚔️", "Troops", fmt(troops))}
+        ${item("¤", "Gold", fmt(gold))}
+        ${item("🏭", "Factories", `${factories}`)}
+        ${item("🏙️", "Cities", `${cities}`)}
+      </div>
     `;
   }
 }

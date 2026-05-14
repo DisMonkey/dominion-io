@@ -663,7 +663,14 @@
     "atom_bomb": "Atom Bomb",
     "hydrogen_bomb": "Hydrogen Bomb",
     "mirv": "MIRV",
-    "factory": "Factory"
+    "factory": "Factory",
+    "infantry": "Infantry",
+    "tank": "Tank",
+    "artillery": "Artillery",
+    "scout": "Scout",
+    "sniper": "Sniper",
+    "medic": "Medic",
+    "engineer": "Engineer"
   },
   "user_setting": {
     "title": "Settings",
@@ -888,7 +895,14 @@
       "port": "Sends trade ships to generate gold",
       "defense_post": "Increases defenses of nearby borders",
       "city": "Increases max population",
-      "factory": "Creates railroads and spawns trains"
+      "factory": "Creates railroads and spawns trains",
+      "infantry": "Fast land unit, attacks nearby enemies",
+      "tank": "Heavy unit, high damage and health",
+      "artillery": "Long range, high damage bombardment",
+      "scout": "Fast recon unit, low combat power",
+      "sniper": "Extreme damage, long range, slow cooldown",
+      "medic": "Heals nearby friendly units",
+      "engineer": "Builds fortifications, captures tiles"
     },
     "warship_shift_hint": "Hold Shift and drag to select multiple warships at once",
     "not_enough_money": "Not enough money"

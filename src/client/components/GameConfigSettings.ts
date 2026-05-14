@@ -100,6 +100,13 @@ const unitOptions: { type: UnitType; translationKey: string }[] = [
   { type: UnitType.HydrogenBomb, translationKey: "unit_type.hydrogen_bomb" },
   { type: UnitType.MIRV, translationKey: "unit_type.mirv" },
   { type: UnitType.Factory, translationKey: "unit_type.factory" },
+  { type: UnitType.Infantry, translationKey: "unit_type.infantry" },
+  { type: UnitType.Tank, translationKey: "unit_type.tank" },
+  { type: UnitType.Artillery, translationKey: "unit_type.artillery" },
+  { type: UnitType.Scout, translationKey: "unit_type.scout" },
+  { type: UnitType.Sniper, translationKey: "unit_type.sniper" },
+  { type: UnitType.Medic, translationKey: "unit_type.medic" },
+  { type: UnitType.Engineer, translationKey: "unit_type.engineer" },
 ];
 
 const MAP_ICON = svg`<path

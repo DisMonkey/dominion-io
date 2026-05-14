@@ -37,6 +37,10 @@ const atomBombIcon = assetUrl("images/NukeIconWhite.svg");
 const portIcon = assetUrl("images/PortIcon.svg");
 const samlauncherIcon = assetUrl("images/SamLauncherIconWhite.svg");
 const shieldIcon = assetUrl("images/ShieldIconWhite.svg");
+const soldierIcon = assetUrl("images/SoldierIcon.svg");
+
+const svgIcon = (emoji: string) =>
+  `data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 40 40'><text y='32' font-size='32'>${emoji}</text></svg>`;
 
 export interface BuildItemDisplay {
   unitType: PlayerBuildableUnitType;
@@ -116,6 +120,57 @@ export const buildTable: BuildItemDisplay[][] = [
       icon: factoryIcon,
       description: "build_menu.desc.factory",
       key: "unit_type.factory",
+      countable: true,
+    },
+  ],
+  [
+    {
+      unitType: UnitType.Infantry,
+      icon: soldierIcon,
+      description: "build_menu.desc.infantry",
+      key: "unit_type.infantry",
+      countable: true,
+    },
+    {
+      unitType: UnitType.Tank,
+      icon: svgIcon("🪖"),
+      description: "build_menu.desc.tank",
+      key: "unit_type.tank",
+      countable: true,
+    },
+    {
+      unitType: UnitType.Artillery,
+      icon: svgIcon("💥"),
+      description: "build_menu.desc.artillery",
+      key: "unit_type.artillery",
+      countable: true,
+    },
+    {
+      unitType: UnitType.Scout,
+      icon: svgIcon("🔭"),
+      description: "build_menu.desc.scout",
+      key: "unit_type.scout",
+      countable: true,
+    },
+    {
+      unitType: UnitType.Sniper,
+      icon: svgIcon("🎯"),
+      description: "build_menu.desc.sniper",
+      key: "unit_type.sniper",
+      countable: true,
+    },
+    {
+      unitType: UnitType.Medic,
+      icon: svgIcon("➕"),
+      description: "build_menu.desc.medic",
+      key: "unit_type.medic",
+      countable: true,
+    },
+    {
+      unitType: UnitType.Engineer,
+      icon: svgIcon("⚙️"),
+      description: "build_menu.desc.engineer",
+      key: "unit_type.engineer",
       countable: true,
     },
   ],
